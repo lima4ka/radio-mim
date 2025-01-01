@@ -6,23 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Radio</title>
     <style>
- .volume-control {
-    display: flex;
-    align-items: center; /* Выравнивание по вертикали */
-    justify-content: center; /* Центрирование по горизонтали */
-    width: 100%;
-    max-width: 300px;
-    margin: 10px auto 0; /* Добавлен отступ сверху для понижения */
-}
+        .volume-control {
+            display: flex;
+            align-items: center;
+            /* Выравнивание по вертикали */
+            justify-content: center;
+            /* Центрирование по горизонтали */
+            width: 100%;
+            max-width: 300px;
+            margin: 10px auto 0;
+            /* Добавлен отступ сверху для понижения */
+        }
 
-.volume-label {
-    margin-left: 1px; /* Уберите этот отступ, если не хотите, чтобы было пространство между слайдером и процентами */
-    font-size: 16px;
-}
+        .volume-label {
+            margin-left: 1px;
+            /* Уберите этот отступ, если не хотите, чтобы было пространство между слайдером и процентами */
+            font-size: 16px;
+        }
 
         #volumeSlider {
-    width: 80%; /* Уменьшение ширины слайдера, чтобы оставить место для процентов */
-}
+            width: 80%;
+            /* Уменьшение ширины слайдера, чтобы оставить место для процентов */
+        }
 
         body {
             display: flex;
@@ -83,10 +88,12 @@
         }
 
         .songTitle {
-    margin-bottom: 10px; /* Отступ между названием песни и слайдером */
-    font-size: 16px;
-    word-wrap: break-word; /* Разрыв длинных строк */
-}
+            margin-bottom: 10px;
+            /* Отступ между названием песни и слайдером */
+            font-size: 16px;
+            word-wrap: break-word;
+            /* Разрыв длинных строк */
+        }
 
         .songName span {
             visibility: hidden;
@@ -150,7 +157,7 @@
         <div class="volume-control">
             <input type="range" id="volumeSlider" min="0" max="100" value="50" />
             <div class="volume-label" id="volumeLabel">50%</div>
-        </div>        
+        </div>
         <audio id="audioPlayer"></audio>
         <div id="songTitle" class="songTitle"></div>
     </div>
