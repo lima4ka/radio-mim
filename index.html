@@ -6,29 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Radio</title>
     <style>
-        .volume-control {
-            display: flex;
-            align-items: center;
-            /* Выравнивание по вертикали */
-            justify-content: center;
-            /* Центрирование по горизонтали */
-            width: 100%;
-            max-width: 300px;
-            margin: 10px auto 0;
-            /* Добавлен отступ сверху для понижения */
-        }
-
-        .volume-label {
-            margin-left: 1px;
-            /* Уберите этот отступ, если не хотите, чтобы было пространство между слайдером и процентами */
-            font-size: 16px;
-        }
-
-        #volumeSlider {
-            width: 80%;
-            /* Уменьшение ширины слайдера, чтобы оставить место для процентов */
-        }
-
         body {
             display: flex;
             justify-content: center;
@@ -48,8 +25,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px;
             height: 430px;
-            position: relative;
-            /* Для позиционирования внутренних элементов */
+
         }
 
         .radioImage {
@@ -88,11 +64,12 @@
         }
 
         .songTitle {
-            margin-bottom: 10px;
-            /* Отступ между названием песни и слайдером */
-            font-size: 16px;
-            word-wrap: break-word;
-            /* Разрыв длинных строк */
+            margin-top: 15px;
+            font-size: 18px;
+            color: rgb(2, 115, 143);
+            font-weight: bold;
+            text-align: center;
+
         }
 
         .songName span {
@@ -153,11 +130,7 @@
             <div class="right-side" onclick="adjustVolume(event)"></div>
             <div class="center-area" onclick="togglePlayPause()"></div>
         </div>
-        <div id="songTitle" class="songTitle">Название песни</div>
-        <div class="volume-control">
-            <input type="range" id="volumeSlider" min="0" max="100" value="50" />
-            <div class="volume-label" id="volumeLabel">50%</div>
-        </div>
+
         <audio id="audioPlayer"></audio>
         <div id="songTitle" class="songTitle"></div>
     </div>
@@ -3044,32 +3017,22 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
+        audioPlayer.volume = 0.5;
+        function adjustVolume(event) {
             const audioPlayer = document.getElementById('audioPlayer');
-            const volumeSlider = document.getElementById('volumeSlider');
-            const volumeLabel = document.getElementById('volumeLabel');
-
-            // Начальное значение громкости
-            const initialVolume = volumeSlider.value / 100;
-
-            try {
-                audioPlayer.volume = initialVolume;
-            } catch (e) {
-                console.log("Изменение громкости через audioPlayer.volume не поддерживается на iOS.");
+            const imageHeight = event.target.clientHeight;
+            const clickPosition = event.clientY - event.target.getBoundingClientRect().top;
+            if (clickPosition < imageHeight / 2) {
+                const newVolume = 1 - (clickPosition / (imageHeight / 2)) * 0.5;
+                audioPlayer.volume = newVolume;
+                console.log(`Ваш звук: ${newVolume}`);
             }
-
-            // Обработка изменения слайдера
-            volumeSlider.addEventListener('input', function () {
-                const volume = volumeSlider.value / 100;
-                volumeLabel.textContent = `${volumeSlider.value}%`;
-
-                try {
-                    audioPlayer.volume = volume; // Попытка изменить громкость
-                } catch (e) {
-                    console.log("Изменение громкости через audioPlayer.volume не поддерживается на iOS.");
-                }
-            });
-        });
+            else {
+                const newVolume = 0.5 - ((clickPosition - imageHeight / 2) / (imageHeight / 2)) * 0.4;
+                audioPlayer.volume = newVolume;
+                console.log(`Ваш звук: ${newVolume}`);
+            }
+        }
         document.getElementById('songTitle').textContent = "";
 
     </script>
